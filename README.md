@@ -6,6 +6,8 @@ Repository for building docker containers for [openHAB](http://openhab.org) (Hom
 
 Comments, suggestions and contributions are welcome!
 
+# This clone of the core openhab image has been extended to include Habmin 0.16
+
 ## Image Variants
 
 ### ``openhab/openhab:<architecture>-<[on|off]line>``

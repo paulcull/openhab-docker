@@ -5,6 +5,8 @@ FROM multiarch/ubuntu-debootstrap:amd64-wily
 ARG ARCH=amd64
 
 ARG DOWNLOAD_URL="https://openhab.ci.cloudbees.com/job/openHAB-Distribution/lastSuccessfulBuild/artifact/distributions/openhab-online/target/openhab-online-2.0.0-SNAPSHOT.zip"
+ARG DOWNLOAD_HABMIN2="https://github.com/cdjackson/HABmin2/blob/master/output/org.openhab.ui.habmin_2.0.0.SNAPSHOT-0.1.6.jar"
+
 ENV APPDIR="/openhab" OPENHAB_HTTP_PORT='8080' OPENHAB_HTTPS_PORT='8443' EXTRA_JAVA_OPTS=''
 
 # Install Basepackages
@@ -35,11 +37,16 @@ RUN adduser --disabled-password --gecos '' --home ${APPDIR} openhab &&\
 
 WORKDIR ${APPDIR}
 
+# Install Openhab
 RUN \
     wget -nv -O /tmp/openhab.zip ${DOWNLOAD_URL} &&\
     unzip -q /tmp/openhab.zip -d ${APPDIR} &&\
     rm /tmp/openhab.zip
 
+# Install habmin
+RUN wget -nv -O ${APPDIR}/addons ${DOWNLOAD_HABMIN2}
+
+# Create log files
 RUN mkdir -p ${APPDIR}/userdata/logs && touch ${APPDIR}/userdata/logs/openhab.log
 
 # Copy directories for host volumes
