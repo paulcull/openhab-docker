@@ -44,7 +44,7 @@ RUN \
     rm /tmp/openhab.zip
 
 # Install habmin
-RUN wget -nv -O ${APPDIR}/addons ${DOWNLOAD_HABMIN2}
+RUN wget -nv -O ${APPDIR}/addons/org.openhab.ui.habmin_2.0.0.SNAPSHOT-0.1.6.jar ${DOWNLOAD_HABMIN2}
 
 # Create log files
 RUN mkdir -p ${APPDIR}/userdata/logs && touch ${APPDIR}/userdata/logs/openhab.log
